@@ -36,10 +36,10 @@ class CircularImageWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius??0),
           border: Border.fromBorderSide(BorderSide(color: Colors.white,width: 2)),
           image: DecorationImage(
-             // image:
+             image: AssetImage(imageName??'')
             // 需要是ImageProvider或者他的子类
-            image: type == 1 ? AssetImage(imageName??'')
-                : type == 2 ? AssetImage('url') : AssetImage('url')
+            // image: type == 1 ? AssetImage(imageName??'')
+            //     : type == 2 ? AssetImage('url') : AssetImage('url')
 
             // AssetImage(imageName??'')
             // type? == 1
