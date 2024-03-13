@@ -58,6 +58,10 @@ class UserPage extends StatelessWidget {
 
   // 顶部导航栏
   Widget _getSliverAppBar() {
+    print('_getSliverAppBar顶部导航栏');
+    print('_getSliverAppBar顶部导航栏===${logic.titleString.value}');
+
+
     return SliverAppBar(
       // brightness:Brightness.dark,
       backgroundColor:Colors.white,
@@ -86,18 +90,21 @@ class UserPage extends StatelessWidget {
       title:  Container(
         // width: 100,
         child: Row(
-          children: [
-            IconButton(
+
+            children: [
+            isLoginUser == true ? IconButton(
                 onPressed: (){
-                  mainScrollLogic.pageController.previousPage(
-                      duration: Duration(milliseconds: 200), curve: Curves.linear
-                  );
+                  mainScrollLogic.pageController.previousPage(duration: Duration(milliseconds: 200), curve: Curves.linear);
+                  // logic.titleString.value = '改变';
+                  // print('改变了string');
                 },
                 icon: Image.asset(AKImageAssets.myTopLeftBackIcon)
-            ),
+            ):Container(),
             Text('名字'),
             SizedBox(width: 80,),
             Text('个人主页'),
+            // Obx(() => Text(logic.titleString.value))
+
           ],
         ),
       )
@@ -112,6 +119,8 @@ class UserPage extends StatelessWidget {
 
   // 用户信息
   Widget _getSliverUserInfo() {
+    print('_getSliverUserInfo===   build ');
+
     return SliverToBoxAdapter(
       child: Container(
         height: 200,
@@ -193,9 +202,9 @@ class UserPage extends StatelessWidget {
   }
 
 
-
-
-
+  void kkk(){
+    RepaintBoundary();
+}
 
 
 }

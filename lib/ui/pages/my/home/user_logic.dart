@@ -10,8 +10,9 @@ import 'user_state.dart';
 class UserLogic extends GetxController with GetSingleTickerProviderStateMixin {
   final UserState state = UserState();
 
-  
-  
+
+  var titleString = '我的'.obs;
+
 
   //是否展示AppBar的title
   var showTitle = false.obs;
