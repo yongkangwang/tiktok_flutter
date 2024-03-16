@@ -36,6 +36,7 @@ class VideoPage extends StatelessWidget  {
   @override
   Widget build(BuildContext context) {
     // return Container();
+
     return Container(
       child: Stack(
 
@@ -56,8 +57,11 @@ class VideoPage extends StatelessWidget  {
       backgroundColor: Colors.transparent,
       appBar: buildNavAppBar(),
       body: buildHomeTabbarView(),
+      primary: true,
+      extendBody: true,
     );
-    
+
+
  */
 
   }
@@ -78,7 +82,7 @@ class VideoPage extends StatelessWidget  {
             IconButton(
               onPressed: (){},
               icon: Image.asset(
-                AKImageAssets.homeAppBarLeft1PNG,
+                AKImageAssets.homeAppBarRight2PNG,
                 width: 20,
                 height: 20,
               ),
@@ -126,14 +130,16 @@ class VideoPage extends StatelessWidget  {
 //        指示器颜色
       indicatorColor: AKAppTheme.norMainThemeColors,
       // 非选中文字颜色
-      unselectedLabelColor: AKAppTheme.unselectedLabelColor,
+      unselectedLabelColor: AKAppTheme.norWhite02Color,
       // 选中tab文字颜色
       labelColor: AKAppTheme.norMainThemeColors,
       // 指示器大小计算方式
       indicatorSize: TabBarIndicatorSize.label,
       // //指示器宽度
       indicatorWeight: 3.r,
+      dividerColor: Colors.transparent,//分割线颜色
       isScrollable: true,
+      // indicatorPadding: EdgeInsets.all(10),//指示器离底部的距离，默认0
       labelStyle: TextStyle(
         fontSize: 18,//字体设置不一样大会导致抖动
         color: AKAppTheme.norMainThemeColors,
@@ -180,7 +186,7 @@ class VideoPage extends StatelessWidget  {
       ),
 
       onNotification:(overscroll){
-
+        print('onNotification===');
         if (overscroll is OverscrollNotification && overscroll.overscroll != 0 && overscroll.dragDetails != null) {
           if(overscroll.overscroll > 0){
             EventAppBus.eventVideo.fire(EventVideoPauseEvent('videoPause'));

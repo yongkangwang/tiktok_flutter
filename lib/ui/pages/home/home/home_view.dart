@@ -44,8 +44,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   late PageController  _pageController;
 
-  @override
 
+
+  @override
   void initState() {
 
     _pageController = PageController(initialPage: 2,keepPage: true);
@@ -81,9 +82,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return Scaffold(
       appBar: buildHomeAppBar(),
       body: buildNestedScrollView(),
-      // body:  Positioned(
-      //     child: _getContent()
-      // ),
+      // extendBody: true,
+      // primary: true,
+
     );
   }
 

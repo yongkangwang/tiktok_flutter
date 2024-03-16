@@ -184,34 +184,44 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
     }
 
 
-
     return PlayPauseGesture(
       onSingleTap: (){
         _playOrPause();
       },
       child: Container(
-        // width: ScreenUtil().screenWidth,
-        // height: ScreenUtil().screenHeight,
-        // color: Colors.black,
-        color: Colors.green,
+        color: Colors.black,
+        // color: Colors.green,
 
-      child:Stack(
-          children: [
-            // _buildVideoCcaleTwo(scale),
+        child:Stack(
+            children: [
+              _buildVideoCcaleThree(),
+              // _buildVideoCcaleTwo(scale),
 
-            _buildVideoScale(scale),
+              // _buildVideoScale(scale),
+              //
+              // _isPlayButton == true?
+              // _isPlaying == true? Container() : buildPauseImage()
+              // :Container(),
 
-            _isPlayButton == true?
-            _isPlaying == true? Container() : buildPauseImage()
-            :Container()
-            ,
+              if (_isPlayButton == true) _isPlaying == true? Container() : buildPauseImage() else Container(),
 
-          ],
-        )
+            ],
+          )
 
       ),
     );
 
+
+  }
+
+
+  Center _buildVideoCcaleThree() {
+    return Center(
+      child: AspectRatio(
+        aspectRatio: _videoPlayerController.value.aspectRatio,
+        child: VideoPlayer(_videoPlayerController),
+      ),
+    );
   }
 
   Center _buildVideoCcaleTwo(double scale) {

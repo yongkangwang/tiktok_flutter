@@ -1,3 +1,4 @@
+import 'package:bili_flutter/ui/pages/short_video/home/video_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,6 +40,8 @@ class Main_scrollPage extends StatelessWidget {
                 children: [
                   KeepAliveWrapper(child: PublishPage()),
                   KeepAliveWrapper(child: MainPage()),
+                  // KeepAliveWrapper(child: VideoPage()),
+
                   KeepAliveWrapper(child: UserPage(isLoginUser: true,)),
 
                 ],
@@ -59,6 +62,7 @@ class Main_scrollPage extends StatelessWidget {
 
  */
 
+            /*
               // 第一种方法，监听scrollPageViewScrollPage 变化
               // 1、定义obx变量，2监听obx变量，这就可以了,
               // Obx(() => Positioned(
@@ -75,6 +79,8 @@ class Main_scrollPage extends StatelessWidget {
 
               //抽屉效果
               // buildDrawerController(),
+
+             */
 
             ],
 

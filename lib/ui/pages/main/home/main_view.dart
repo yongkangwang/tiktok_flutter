@@ -1,5 +1,6 @@
 
 // 系统
+import 'package:bili_flutter/ui/pages/short_video/home/video_view.dart';
 import 'package:bili_flutter/ui/sheard/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,80 +41,102 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return GetBuilder<MainLogic>(
       builder: (logic){
-        // 为了解决不同屏幕的问题，Flutter有了SafeArea，
-        // 在SafeArea的child里面进行布局，就不会受屏幕的影响，内容不会被遮盖住。
-        // 但是感觉不好用
-        // return SafeArea(child:);
         return buildScaffold(logic);
-        /*
-      return  SafeArea(
 
-        child: Scaffold(
-            // animation
-            // body: state.mainIndexStackPages[state.currentIndex],
-            body: PageTransitionSwitcher(
-              transitionBuilder: (child, animation, secondaryAnimation){
-                return FadeThroughTransition(
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  child: child,
-                );
-              },
-              child: state.mainIndexStackPages[state.currentIndex],
-            ),
+        // return  buildSafeArea(logic);
 
-
-            bottomNavigationBar: BottomNavigationBar(
-              // items: AKInitalizeItems.items,
-              // items数组不能单独抽出去，会导致i180国际化失效
-              items: [
-                buildBottomNavigationBarItem(AKSr.home.tr.toUpperCase(), 'home'),
-                buildBottomNavigationBarItem(AKSr.video.tr.toUpperCase(), 'home'),
-              ],
-              currentIndex: state.currentIndex,
-              selectedItemColor: AKAppTheme.norMainThemeColors,
-              onTap: (index){
-                logic.updateCurrentIndex(index);
-              },
-
-            ),
-
-            floatingActionButton: AKFloatingActionButton(),
-
-
-          ),
-      );
-        */
-      },
-
+      }
 
     );
 
   }
 
-  Scaffold buildScaffold(MainLogic logic) {
-    return Scaffold(
-        // animation
-        // body: state.mainIndexStackPages[state.currentIndex],
+  SafeArea buildSafeArea(MainLogic logic) {
+    // 为了解决不同屏幕的问题，Flutter有了SafeArea，
+    // 在SafeArea的child里面进行布局，就不会受屏幕的影响，内容不会被遮盖住。
+    // 但是感觉不好用
+    return SafeArea(
+      child: Scaffold(
 
-        // body: buildPageTransitionSwitcher(),
-        // bottomNavigationBar: buildBottomNavigationBar(logic),
+          // animation
+          // body: state.mainIndexStackPages[state.currentIndex],
+          body: PageTransitionSwitcher(
+            transitionBuilder: (child, animation, secondaryAnimation){
+              return FadeThroughTransition(
+                animation: animation,
+                secondaryAnimation: secondaryAnimation,
+                child: child,
+              );
+            },
+            child: state.mainIndexStackPages[state.currentIndex],
+          ),
+
+
+          bottomNavigationBar: BottomNavigationBar(
+            // items: AKInitalizeItems.items,
+            // items数组不能单独抽出去，会导致i180国际化失效
+            items: [
+              buildBottomNavigationBarItem(AKSr.home.tr.toUpperCase(), 'home'),
+              buildBottomNavigationBarItem(AKSr.video.tr.toUpperCase(), 'home'),
+            ],
+            currentIndex: state.currentIndex,
+            selectedItemColor: AKAppTheme.norMainThemeColors,
+            onTap: (index){
+              logic.updateCurrentIndex(index);
+            },
+
+          ),
+
+
+          floatingActionButton: AKFloatingActionButton(),
+
+
+        ),
+    );
+  }
+
+  Scaffold buildScaffold(MainLogic logic) {
+    // return SafeArea(child:TextButton(onPressed: (){print('点击了');}, child: Text('data=======')));
+
+    return Scaffold(
+
+      // animation
+      //   body: state.mainIndexStackPages[state.currentIndex],
+        body: buildPageTransitionSwitcher(),
+        bottomNavigationBar: buildBottomNavigationBar(logic),
+        extendBody: true,
+        primary: true,
+
 
         // floatingActionButton: AKFloatingActionButton(),
-
-      body: Stack(
+/*
+      body:Stack(
+        // bottomEnd导致首页整个页面无法响应事件了
         alignment: AlignmentDirectional.bottomEnd,
         children: [
           buildPageTransitionSwitcher(),
-          buildBottomNavigationBar(logic)
+          buildBottomNavigationBar(logic)//在模拟器iPhone8plus上首页无法响应事件，真机上运行正常
+
+          /*
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0.1,//设置为0会导致首页无法响应事件，
+              child: buildBottomNavigationBar(logic)
+          )
+
+           */
+
         ],
       ),
 
 
+ */
+
       );
+
   }
 
   PageTransitionSwitcher buildPageTransitionSwitcher() {
@@ -131,7 +154,9 @@ class MainPage extends StatelessWidget {
 
   BottomNavigationBar buildBottomNavigationBar(MainLogic logic) {
     return BottomNavigationBar(
+      // backgroundColor: Color.fromRGBO(255, 255, 255, 0.00001),
         backgroundColor: state.currentIndex == 0 ? Colors.transparent : Colors.white,
+
         // items: AKInitalizeItems.items,
         // items数组不能单独抽出去，会导致i180国际化失效
         items: [
@@ -144,6 +169,7 @@ class MainPage extends StatelessWidget {
         selectedItemColor: AKAppTheme.norMainThemeColors,
         unselectedItemColor: state.currentIndex == 0 ?Colors.white:Colors.black,
         onTap: (index){
+          print('底部导航点击了$index');
           logic.updateCurrentIndex(index);
           main_scrollLogic.selectIndexBottomBarMainPage(index);
 
@@ -162,7 +188,7 @@ class MainPage extends StatelessWidget {
 BottomNavigationBarItem buildBottomNavigationBarItem (String title,String iconNmae) {
   return BottomNavigationBarItem(
     label: title,
-    // backgroundColor: Colors.orange,
+    // backgroundColor: Colors.red,
 
     icon: Image.asset(
       "assets/image/tabbar/${iconNmae}_custom.png",

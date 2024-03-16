@@ -26,37 +26,44 @@ class Commend_videoPage extends StatelessWidget {
         builder: ( logic){
           return NotificationListener(
             onNotification: (notification){
+              // print('notification,这里会一直执行');
               if (notification is ScrollEndNotification && notification.depth == 0) {
                 print('object==ScrollEndNotification');
                 logic.updateCurrentPage();
               }
               return true;
             },
-            child: PageView.builder(
-              onPageChanged: (index){
-                logic.updateCurrentIndex(index);
-              },
+            child: buildPageView(logic),
 
-                // key: Key('Commend_videoPage'),
-                physics: BouncingScrollPhysics(),
-                controller: logic.pageController,
-                scrollDirection: Axis.vertical,
-                itemCount: logic.videoList.length,
-                itemBuilder: (context,index){
-                  print('index====$index');
-                  return AKVideoPlaying(
-                    videoModel: logic.videoList[index],
-                    index: index,
-                    page: state.currentPage,
-                  );
-                }
 
-            ),
           );
         }
     );
 
 
+  }
+
+  PageView buildPageView(Commend_videoLogic logic) {
+    return PageView.builder(
+            onPageChanged: (index){
+              logic.updateCurrentIndex(index);
+            },
+
+              // key: Key('Commend_videoPage'),
+              physics: BouncingScrollPhysics(),
+              controller: logic.pageController,
+              scrollDirection: Axis.vertical,
+              itemCount: logic.videoList.length,
+              itemBuilder: (context,index){
+                print('index====$index');
+                return AKVideoPlaying(
+                  videoModel: logic.videoList[index],
+                  index: index,
+                  page: state.currentPage,
+                );
+              }
+
+          );
   }
 
 
