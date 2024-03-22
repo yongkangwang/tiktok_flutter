@@ -167,6 +167,7 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
       double rateWidthHeightContent = screenWidth / contentHeight;
       double rateWidthContentVideo = screenWidth / _videoPlayerController.value.size.width;
       double heightVideoByRate = _videoPlayerController.value.size.height * rateWidthContentVideo;
+      scale = _videoPlayerController.value.aspectRatio;
       print('视频宽:${_videoPlayerController.value.size.width} 视频高:${_videoPlayerController.value.size.height}');
       print('视频宽高比:${_videoPlayerController.value.size.width/_videoPlayerController.value.size.height}');
       print('屏幕宽:${screenWidth}  高：${contentHeight}');
@@ -175,11 +176,17 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
       print('比例:$rateWidthContentVideo');
       print('比例换算视频高度:$heightVideoByRate');
       if(contentHeight > heightVideoByRate ){
+      // if(contentHeight < heightVideoByRate ){
+
         double rateHeightContentVideo = contentHeight /  _videoPlayerController.value.size.height;
         videoLayoutHeight = heightVideoByRate;
         videoLayoutWidth = screenWidth;
         scale = contentHeight / videoLayoutHeight;
+        // scale = rateHeightContentVideo;
+
         print('width:$videoLayoutWidth height:$videoLayoutHeight scale:$scale rate:$rateHeightContentVideo');
+
+        print('视频比例${_videoPlayerController.value.aspectRatio}');
       }
     }
 
@@ -191,17 +198,10 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
       child: Container(
         color: Colors.black,
         // color: Colors.green,
-
         child:Stack(
-            children: [
-              _buildVideoCcaleThree(),
-              // _buildVideoCcaleTwo(scale),
-
+          children: [
+            _buildVideoCcaleThree(),
               // _buildVideoScale(scale),
-              //
-              // _isPlayButton == true?
-              // _isPlaying == true? Container() : buildPauseImage()
-              // :Container(),
 
               if (_isPlayButton == true) _isPlaying == true? Container() : buildPauseImage() else Container(),
 
@@ -214,27 +214,32 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
 
   }
 
+  Widget _buildVideoCcaleThree() {
 
-  Center _buildVideoCcaleThree() {
-    return Center(
-      child: AspectRatio(
-        aspectRatio: _videoPlayerController.value.aspectRatio,
-        child: VideoPlayer(_videoPlayerController),
-      ),
-    );
+    if(_videoPlayerController.value.aspectRatio>1){
+      print('_buildVideoCcaleThree=== ${_videoPlayerController.value.aspectRatio}  =====');
+      return Center(
+        child: AspectRatio(
+          aspectRatio: _videoPlayerController.value.aspectRatio,
+          child: VideoPlayer(_videoPlayerController),
+        ),
+
+      );
+    }else{
+      print('_buree=== ${_videoPlayerController.value.aspectRatio}  =====');
+
+      return Container(
+        alignment: Alignment.topCenter,
+        child: AspectRatio(
+          aspectRatio: _videoPlayerController.value.aspectRatio,
+          child: VideoPlayer(_videoPlayerController),
+        ),
+      );
+
+    }
+
   }
 
-  Center _buildVideoCcaleTwo(double scale) {
-    return Center(
-            child: AspectRatio(
-              // aspectRatio: _videoPlayerController.value.aspectRatio,
-              // aspectRatio: 0.5,
-              aspectRatio: scale,
-
-              child: VideoPlayer(_videoPlayerController),
-            ),
-          );
-  }
 
   Transform _buildVideoScale(double scale) {
     return Transform.scale(
@@ -247,6 +252,9 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
             ),
           );
   }
+
+
+
 
   void _playOrPause() {
     _isPlayButton = true;
@@ -297,7 +305,7 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
     return Positioned(
       // bottom: 20,
       left: 12,
-      bottom: ScreenUtil().bottomBarHeight+80,
+      bottom: ScreenUtil().bottomBarHeight+80+10,
 
       child: VideoBottonBar(videoModel: widget.videoModel),
     );
