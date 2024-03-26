@@ -9,6 +9,8 @@ import 'package:bili_flutter/ui/pages/home/cartoon/cartoon_logic.dart';
 import '../mainScroll/main_scroll_logic.dart';
 import '../../my/home/user_logic.dart';
 
+import '../../mall/home/mall_logic.dart';
+
 // 捆绑
 class MainBinding extends Bindings {
   @override
@@ -17,6 +19,8 @@ class MainBinding extends Bindings {
     Get.lazyPut(() => MainLogic());
     Get.lazyPut(() => HomeLogic());
     Get.lazyPut(() => VideoLogic());
+    Get.lazyPut(() => MallLogic());
+
     Get.lazyPut(() => UserLogic());
 
 

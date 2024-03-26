@@ -19,6 +19,8 @@ import 'package:bili_flutter/ui/widegts/view/primary_scroll_container.dart';
 import 'package:bili_flutter/ui/pages/home/recommend/recommend_view.dart';
 import 'package:bili_flutter/ui/pages/home/cartoon/cartoon_view.dart';
 
+import '../../../widegts/view/keep_alive_view.dart';
+
 
 class HomePage extends StatefulWidget {
   // HomePage({Key? key}) : super(key: key);
@@ -32,7 +34,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-//
+//混入
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final logic = Get.find<HomeLogic>();
 
@@ -51,9 +53,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
     _pageController = PageController(initialPage: 2,keepPage: true);
 
-
     // TODO: implement initState
-    // 使用this当做 TickerProvider需要给类添加 SingleTickerProviderStateMixin
+    // 使用this当做 TickerProvider需要给类添加 SingleTickerProviderStateMixin，
+    // 也可以抽出来在GetxController中混入添加
     tabController = TabController(length: 2, vsync: this ,initialIndex: 0);
     tabController.addListener(() {
       for (int i = 0; i < state.scrollChildKeys.length; i++) {
@@ -65,6 +67,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
     });
     super.initState();
+    print('HomePage  initState');
+
   }
 
   @override
@@ -73,10 +77,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     tabController.removeListener(() { });
     tabController.dispose();
     super.dispose();
+    print('HomePage  dispose');
+
   }
 
-
+  @override
   Widget build(BuildContext context) {
+    print('HomePage  build');
     // 一个嵌套scrollview
 
     return Scaffold(
@@ -87,43 +94,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
     );
   }
-
-
-  _getContent() {
-    double contentHeight = MediaQuery.of(context).size.height;
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width,
-        maxHeight: contentHeight,
-      ),
-      child: NotificationListener(
-        child: PageView(
-            controller: _pageController,
-            children: [
-              RecommendPage(),
-              CartoonPage(),
-
-
-            ],
-            onPageChanged: (index) {
-              tabController.animateTo(index);
-            }),
-        onNotification: (overscroll){
-          if (overscroll is OverscrollNotification && overscroll.overscroll != 0 && overscroll.dragDetails != null) {
-            if(overscroll.overscroll > 0){
-              widget.scrollPageController!.nextPage(duration: Duration(milliseconds: 200), curve: Curves.linear);
-            }else {
-              widget.scrollPageController!.previousPage(duration: Duration(milliseconds: 200), curve: Curves.linear);
-              // widget.scrollPageController!.nextPage(duration: Duration(milliseconds: 200), curve: Curves.linear);
-
-            }
-          }
-          return true;
-        },
-      ),
-    );
-  }
-
 
 
 
@@ -254,23 +224,75 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   // 顶部标签栏对应的内容
   Widget buildHomeTabbarView(){
+    print('buildHomeTabbarView  build');
+
     return TabBarView(
       controller: tabController,
       children: [
+        // RecommendPage(),
+        // CartoonPage()
+        // 测试
+        // KeepAliveWrapper(child: RecommendPage()),
+        // KeepAliveWrapper(child: CartoonPage()),
+
         PrimaryScrollContainer(
             key: state.keyRecommend,
             child:  RecommendPage(),
+          // child:  KeepAliveWrapper(child: RecommendPage()),
+
         ),
         PrimaryScrollContainer(
             key: state.keyCartoon,
             child: CartoonPage(),
+          // child: KeepAliveWrapper(child: CartoonPage()),
+
         ),
+
 
       ],
     );
 
-
   }
+
+  // 废弃的
+  _getContent() {
+    double contentHeight = MediaQuery.of(context).size.height;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width,
+        maxHeight: contentHeight,
+      ),
+      child: NotificationListener(
+        child: PageView(
+            controller: _pageController,
+            children: [
+              KeepAliveWrapper(child: RecommendPage()),
+              KeepAliveWrapper(child: CartoonPage()),
+
+              // RecommendPage(),
+              // CartoonPage(),
+
+
+            ],
+            onPageChanged: (index) {
+              tabController.animateTo(index);
+            }),
+        onNotification: (overscroll){
+          if (overscroll is OverscrollNotification && overscroll.overscroll != 0 && overscroll.dragDetails != null) {
+            if(overscroll.overscroll > 0){
+              widget.scrollPageController!.nextPage(duration: Duration(milliseconds: 200), curve: Curves.linear);
+            }else {
+              widget.scrollPageController!.previousPage(duration: Duration(milliseconds: 200), curve: Curves.linear);
+              // widget.scrollPageController!.nextPage(duration: Duration(milliseconds: 200), curve: Curves.linear);
+
+            }
+          }
+          return true;
+        },
+      ),
+    );
+  }
+
 
 
 

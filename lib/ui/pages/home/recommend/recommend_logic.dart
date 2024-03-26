@@ -72,6 +72,7 @@ class RecommendLogic extends GetxController {
     ).then((value) async{
       state.feedIndexItemList.addAll(value.data.items);
       state.isLoading = false;
+
       update();
 
     });
@@ -141,6 +142,8 @@ class RecommendLogic extends GetxController {
   ///视频列表
   Widget buildHomeRecommendVideoCards(){
     final items = state.feedIndexItemList;
+    print('视频列表   build');
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       // 如果内容不足，则用户无法滚动 而如果[primary]为true，它们总是可以尝试滚动。
@@ -156,6 +159,8 @@ class RecommendLogic extends GetxController {
       // itemCount: 10,
 
       itemBuilder: (context,index){
+        print('context视频item   build$index');
+
         return buildRecommendItem(items[index]);
 
       },
@@ -167,6 +172,7 @@ class RecommendLogic extends GetxController {
   
   // 视频item
   Widget buildRecommendItem(FeedIndexItem video){
+    print('视频item   build');
 
     return GestureDetector(
       onTap: (){
@@ -309,6 +315,8 @@ class RecommendLogic extends GetxController {
 
   ///视频封面
   Widget buildHomeVideoItemCover(FeedIndexItem video) {
+    print('视频封面   build');
+
     if (video.cardType == "cm_v2") {
       ///广告类型的数据
       return ClipRRect(
@@ -318,7 +326,7 @@ class RecommendLogic extends GetxController {
         ),
         child: SizedBox(
           width: 180.w,
-          height: 100.w,
+          height: 101.2.w,
           child: FadeInImage(
             imageErrorBuilder: (ctx, error, stackTrace) {
               return Container(

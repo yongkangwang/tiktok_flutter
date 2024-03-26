@@ -35,7 +35,10 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('UserPage===   build ');
+
+
     return Scaffold(
+
       backgroundColor: Colors.red,
       // appBar: buildNavAppBar(),
       // body: Container(
@@ -43,6 +46,7 @@ class UserPage extends StatelessWidget {
       // ),
 
       body: CustomScrollView(
+
         controller: logic.scrollController,
         // physics: BouncingScrollPhysics(),
         slivers: [
@@ -58,7 +62,8 @@ class UserPage extends StatelessWidget {
 
   // 顶部导航栏
   Widget _getSliverAppBar() {
-    print('_getSliverAppBar顶部导航栏');
+    print('_getSliverAppBar顶部导航栏===   build ');
+
     print('_getSliverAppBar顶部导航栏===${logic.titleString.value}');
 
 
@@ -133,6 +138,8 @@ class UserPage extends StatelessWidget {
 
   // 标签栏
   Widget _getTabBar() {
+    print('标签栏===   build ');
+
     return SliverPersistentHeader(
       pinned: true,
       delegate: StickyTabBarDelegate(
@@ -178,6 +185,8 @@ class UserPage extends StatelessWidget {
 
   //标签栏对应的内容
   Widget _getTabView(){
+    print('标签栏对应的内容===   build ');
+
     return SliverToBoxAdapter(
       child: ConstrainedBox(
         constraints: BoxConstraints(

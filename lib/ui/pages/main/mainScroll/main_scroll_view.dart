@@ -25,11 +25,11 @@ class Main_scrollPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // return Container();
-    print('scrollPageViewScrollPage  == ${logic.scrollPageViewScrollPage.value}');
+    print('scrollPageViewScrollPage  build == ${logic.scrollPageViewScrollPage.value}');
 
     return GetBuilder<Main_scrollLogic>(
         builder: (logic){
-          print('scrollPageViewScrollPage  == ${logic.scrollPageViewScrollPage.value}');
+          print('scrollPageViewScrollPage GetBuilder == ${logic.scrollPageViewScrollPage.value}');
           return Stack(
             children: [
               PageView(
@@ -38,6 +38,7 @@ class Main_scrollPage extends StatelessWidget {
                 physics: logic.scrollPageViewScrollPage.value ? ClampingScrollPhysics() : NeverScrollableScrollPhysics(),
                 // physics: logic.scrollPageViewScrollPage.value ? null : NeverScrollableScrollPhysics(),
                 children: [
+                  // 保活
                   KeepAliveWrapper(child: PublishPage()),
                   KeepAliveWrapper(child: MainPage()),
                   // KeepAliveWrapper(child: VideoPage()),

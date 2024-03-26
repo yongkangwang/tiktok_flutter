@@ -28,6 +28,10 @@ import 'package:bili_flutter/ui/pages/main/mainScroll/main_scroll_binding.dart';
 
 import 'package:bili_flutter/ui/pages/my/home/user_view.dart';
 
+import 'package:bili_flutter/ui/pages/mall/home/mall_logic.dart';
+import 'package:bili_flutter/ui/pages/mall/home/mall_view.dart';
+
+
 class AKRouter{
 
 
@@ -63,6 +67,12 @@ class AKRouter{
       page: () => VideoPage(),
       binding: VideoBinding(),
     ),
+
+    GetPage(
+      name: MallPage.routeName,
+      page: () => MallPage(),
+    ),
+
 
     //我的
     GetPage(
