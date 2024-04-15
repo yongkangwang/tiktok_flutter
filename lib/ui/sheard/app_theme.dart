@@ -12,10 +12,10 @@ class AKAppTheme{
 
   // 1.共有属性
   static const double bodyFontSize = 14;
-  // static const double smallFontSize = 16;
+  static const double normalFontSize = 16;
   // static const double normalFontSize = 20;
-  // static const double largeFontSize = 24;
-  // static const double xlargeFontSize = 30;
+  static const double largeFontSize = 20;
+  static const double xlargeFontSize = 30;
 
 
 

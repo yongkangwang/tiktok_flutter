@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 import 'core/third/shared_preference/shared_preference_util.dart';
 import 'core/third/shared_preference/preference_keys.dart';
@@ -75,6 +76,8 @@ class MyApp extends StatelessWidget {
           // locale: Locale('zh','CN'),
           // 在配置错误的情况下 显示的语言
           // fallbackLocale: Locale("zh",'CN'),
+          navigatorObservers: [FlutterSmartDialog.observer],
+          builder: FlutterSmartDialog.init(),
         );
 
       },

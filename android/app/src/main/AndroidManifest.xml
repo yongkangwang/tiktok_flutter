@@ -1,9 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <!-- 六道   网络请求权限-->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 六道 外部文件存储权限-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--    读取文件权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>-->
+
+    <!-- 六道 相机相册权限-->
+<!-- Android权限可分为两类：危险权限和普通权限，危险权限需要在运行时动态请求用户授权，
+普通权限不需要动态请求用户授权，只需要在AndroidManifest.xml文件中声明即可
+   -->
+<!--    <uses-permission android:name="android.permission.CAMERA" />-->
+
 
     <application
         android:label="bili_flutter"

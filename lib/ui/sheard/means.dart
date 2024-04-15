@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 
+
+
+void printDebug(Object? object) {
+  if (!kDebugMode) return; // 如果是发布模式，则不打印
+  print('[DEBUG] $object'); // 开发模式下打印
+}
+
+void printRelease(Object? object) {
+  if (kDebugMode) return; // 如果是开发模式，则不打印
+  print(object); // 发布模式下打印
+}
 
 ///十六进制转为颜色
 class ColorRadixChange {

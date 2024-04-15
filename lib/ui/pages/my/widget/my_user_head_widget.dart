@@ -1,10 +1,14 @@
 
+import 'dart:io';
+
+import 'package:bili_flutter/ui/sheard/means.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:bili_flutter/core/third/utils/image_utils.dart';
+import 'package:get/get.dart';
 
 import '../../../sheard/image_assets.dart';
 import '../../../widegts/view/circular_widget.dart';
@@ -23,55 +27,103 @@ class UserHeadInfoWidget extends StatefulWidget {
 
 class _UserHeadInfoWidgetState extends State<UserHeadInfoWidget> {
 
-  var isFile = false;
+  var _isFile = false.obs;
+  var _file;
+
 
   @override
   Widget build(BuildContext context) {
     // return const Placeholder();
-    return Stack(
-      // alignment: Alignment.bottomCenter,
-      fit: StackFit.expand,
-      children: [
-        // FileImage(file)
-        Image.asset(
-          AKImageAssets.myTopBackgroundImage,
-          fit: BoxFit.fill,
-          width: ScreenUtil().screenWidth,
-        ),
-        Positioned(
-            bottom: 10,
-            left: 15,
-            child: IconButton(
-                onPressed: (){
-                  print('头像点击了');
-                  // showCupertinoAlert(context);
-                  // showCupertinoBottomAlert(context);
-                  showModalBottomAlert(context);
-                },
-                icon: CircularImageWidget(
-                  imageName: AKImageAssets.myTophead_portrait,
-                  radius: 50,width: 100,heigth: 100,
-                )
-
-            )
-        )
-      ],
-
+    // return buildStack(context);
+    return GestureDetector(
+      onTap: (){
+        showModalBottomAlert(context);
+      },
+      child: Obx(() =>  CircularImageWidget(
+        imageName: AKImageAssets.myTophead_portrait,
+        radius: 40,width: 80,heigth: 80,
+        type: _isFile.value == false ? 1 : 3,
+        imageFile: _file,
+      )),
     );
-
+    // return buildIconButton(context);
 
   }
 
+  IconButton buildIconButton(BuildContext context) {
+    // IconButton 有内边距，不方便左对齐
+    return IconButton(
+      onPressed: (){
+        print('头像点击了');
+        // showCupertinoAlert(context);
+        // showCupertinoBottomAlert(context);
+        showModalBottomAlert(context);
+      },
+      icon: Obx(() =>  CircularImageWidget(
+        imageName: AKImageAssets.myTophead_portrait,
+        radius: 40,width: 80,heigth: 80,
+        type: _isFile.value == false ? 1 : 3,
+        imageFile: _file,
+      ))
 
+  );
+  }
+
+  Stack buildStack(BuildContext context) {
+    return Stack(
+    // alignment: Alignment.bottomCenter,
+    fit: StackFit.expand,
+    children: [
+      // FileImage(file)
+      Image.asset(
+        AKImageAssets.myTopBackgroundImage,
+        fit: BoxFit.fill,
+        width: ScreenUtil().screenWidth,
+      ),
+      Positioned(
+          bottom: 10,
+          left: 15,
+          child: IconButton(
+              onPressed: (){
+                print('头像点击了');
+                // showCupertinoAlert(context);
+                // showCupertinoBottomAlert(context);
+                showModalBottomAlert(context);
+              },
+              icon:
+            Obx(() =>  CircularImageWidget(
+              imageName: AKImageAssets.myTophead_portrait,
+              radius: 50,width: 100,heigth: 100,
+              type: _isFile.value == false ? 1 : 3,
+              imageFile: _file,
+            )
+            )
+
+
+          )
+      )
+    ],
+
+  );
+  }
+
+
+
+
+//选择头像弹窗
   void showModalBottomAlert(BuildContext context) {
     showModalBottomSheet(context: context, builder:(BuildContext context) {
       return BottomAlert(
         onTapGallery: (){
-          ImageUtils.getImage();
-          
+           ImageUtils.getImage().then((value){
+             printDebug('ImageUtils== $value');
+             changeImage(value);
+           });
         },
         onTapCamera: (){
-          
+          ImageUtils.getCamera().then((value){
+            changeImage(value);
+          });
         },
       );
       
@@ -79,6 +131,15 @@ class _UserHeadInfoWidgetState extends State<UserHeadInfoWidget> {
   }
 
 
+  void changeImage(File? file){
+    if(file == null){
+    }else{
+      _file = file;
+      setState(() {
+        _isFile.value = true;
+      });
+    }
+  }
 
   void showCupertinoAlert(BuildContext context){
     showCupertinoDialog(context: context, builder: (BuildContext context){
@@ -123,7 +184,6 @@ class _UserHeadInfoWidgetState extends State<UserHeadInfoWidget> {
 
 
 
-
   void showMaterialAlert(BuildContext context) {
     showDialog(context: context, builder: (BuildContext context){
       return AlertDialog(
@@ -138,6 +198,10 @@ class _UserHeadInfoWidgetState extends State<UserHeadInfoWidget> {
 
     });
   }
+
+
+
+
 
 
 

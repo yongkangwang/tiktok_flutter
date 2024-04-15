@@ -38,8 +38,9 @@ class UserPage extends StatelessWidget {
 
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
 
-      backgroundColor: Colors.red,
+      // backgroundColor: Colors.red,
       // appBar: buildNavAppBar(),
       // body: Container(
       //   color: Colors.yellow,
@@ -63,9 +64,7 @@ class UserPage extends StatelessWidget {
   // 顶部导航栏
   Widget _getSliverAppBar() {
     print('_getSliverAppBar顶部导航栏===   build ');
-
     print('_getSliverAppBar顶部导航栏===${logic.titleString.value}');
-
 
     return SliverAppBar(
       // brightness:Brightness.dark,
@@ -78,8 +77,8 @@ class UserPage extends StatelessWidget {
       stretch: true,
       // FlexibleSpaceBar 这里就是用于实现滚动折叠的效果的地方
       flexibleSpace: FlexibleSpaceBar(
-        // background: Image.asset(AKImageAssets.myTopBackgroundImage,fit: BoxFit.fill,),
-        background: UserHeadInfoWidget(),
+        background: Image.asset(AKImageAssets.myTopBackgroundImage,fit: BoxFit.fill,),
+        // background: UserHeadInfoWidget(),
       ),
       actions: [
         IconButton(
@@ -128,8 +127,9 @@ class UserPage extends StatelessWidget {
 
     return SliverToBoxAdapter(
       child: Container(
-        height: 200,
-        color: Colors.teal,
+        height: 300,
+        color: Colors.transparent,
+        // color: Colors.teal,
         // child: Text('用户信息'),
         child: MyUserInfoWidget(),
       ),

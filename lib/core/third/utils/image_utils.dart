@@ -4,14 +4,13 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class ImageUtils{
-
+  // 刚添加后的相册权限需要等个5分钟，有缓存没权限问题会导致调用相册崩溃，
   /// 图片选取
   static Future<File?> getImage() async {
     final XFile? file = await ImagePicker().pickImage(
         source: ImageSource.gallery,//图库选择
       // maxWidth: 100.0, // 设置图片最大宽度，间接压缩了图片的体积
     );
-
 
     /// 选取图片失败file为null，要注意判断下。
     /// 获取图片路径后可以上传到服务器上

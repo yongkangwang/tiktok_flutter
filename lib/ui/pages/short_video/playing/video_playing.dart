@@ -105,8 +105,7 @@ class _AKVideoPlayingState extends State<AKVideoPlaying> {
   Widget build(BuildContext context) {
     // return const Placeholder();
 
-    
-    if(_isPlayButton){
+  if(_isPlayButton){
     }else{
       if(widget.index == widget.page){
         // _playOrPause();
