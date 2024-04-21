@@ -75,7 +75,7 @@ class Commend_videoPage extends StatelessWidget {
        onPageChanged: (index){
          logic.updateCurrentIndex(index);
        },
-
+       
        // key: Key('Commend_videoPage'),
        physics: BouncingScrollPhysics(),
        controller: logic.pageController,

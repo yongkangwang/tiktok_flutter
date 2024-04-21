@@ -21,7 +21,7 @@ class RecommendState {
 
   RecommendState() {
     ///Initialize variables
-
+  print('object==1');
     pageNum = 1;
     pageSize = 10;
     hadMore = true;

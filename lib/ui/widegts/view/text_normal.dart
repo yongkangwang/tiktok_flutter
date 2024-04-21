@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../sheard/app_theme.dart';
 
+
+
 class TextNormal extends StatelessWidget {
   const TextNormal(
     this.text,{
@@ -14,9 +16,18 @@ class TextNormal extends StatelessWidget {
   final double fontSize;
   final Color color;
 
+
+
   @override
   Widget build(BuildContext context) {
     // return const Placeholder();
+
     return Text(text,style: TextStyle(fontSize: fontSize,color: color),);
   }
+
+
+
+
+  
+  
 }
